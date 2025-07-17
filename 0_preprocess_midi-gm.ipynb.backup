@@ -4,19 +4,6 @@
    "cell_type": "markdown",
    "metadata": {},
    "source": [
-    "# 0_preprocess_midi-gm.ipynb - M1 Max Optimized\\n",
-    "\\n",
-    "This notebook has been optimized for M1 Max machines running macOS Sequoia:\\n",
-    "- Updated to TensorFlow 2.x with Apple Silicon support\\n",
-    "- Added Metal GPU acceleration\\n",
-    "- Enabled mixed precision training\\n",
-    "- Updated all Keras imports to use tf.keras\\n"
-   ]
-  },
-  {
-   "cell_type": "markdown",
-   "metadata": {},
-   "source": [
     "I assume that you have downloaded Groove MIDI dataset and uncompssed into `./midi_dataset/groove/` folder  \n",
     "https://magenta.tensorflow.org/datasets/groove \n",
     "\n",
@@ -33,21 +20,20 @@
    "metadata": {},
    "outputs": [],
    "source": [
-    "# M1 Max Optimized Setup\\n",
-    "import sys\\n",
-    "sys.path.append('./rhythm_can')\\n",
-    "\\n",
-    "# Import M1 optimization utilities\\n",
-    "from rhythm_can.m1_optimization import configure_tensorflow_for_m1, get_optimized_imports\\n",
-    "\\n",
-    "# Configure TensorFlow for M1 Max\\n",
-    "tf = configure_tensorflow_for_m1()\\n",
-    "\\n",
-    "# Get optimized imports\\n",
-    "imports = get_optimized_imports()\\n",
-    "globals().update(imports)\\n",
-    "\\n",
-    "print('\u2705 M1 Max optimization complete!')\\n"
+    "from glob import glob\n",
+    "import os\n",
+    "\n",
+    "os.environ[\"CUDA_VISIBLE_DEVICES\"] = '0'\n",
+    "\n",
+    "#filepaths = glob(\"./midi_dataset/groove/*/*/*beat_4-4.mid\")\n",
+    "filepaths = glob(\"./midi_dataset/gm_reddit/GM MIDI Pack/GM - Electronic/*/*/*.mid\")\n",
+    "#filepaths.extend(filepaths2)\n",
+    "\n",
+    "print(len(filepaths))\n",
+    "\n",
+    "# remove \"fill\" rhythms\n",
+    "filepaths = [path for path in filepaths if \"fill\" not in path]\n",
+    "print(len(filepaths))"
    ]
   },
   {

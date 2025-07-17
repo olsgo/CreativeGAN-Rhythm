@@ -9,19 +9,28 @@ from IPython.display import Audio
 from scipy.io import wavfile
 import numpy as np
 
-from tensorboard_logger import configure, log_value
-
+import tensorflow as tf
 from datetime import datetime
 
 import matplotlib
 matplotlib.rcParams.update({'font.size': 14})
 
 def start_tfboard_log(logdir_prefix = "/tmp/tf_logs/"):
+    """Start TensorBoard logging using TensorFlow 2.x"""
     now = datetime.now()
     logdir = logdir_prefix + now.strftime("%Y%m%d-%H%M%S") 
     cmd = "tensorboard --logdir=" + logdir_prefix
-    print (cmd)
-    configure(logdir, flush_secs=5)
+    print(cmd)
+    
+    # Create summary writer for TensorFlow 2.x
+    writer = tf.summary.create_file_writer(logdir)
+    return writer
+
+def log_value(writer, tag, value, step):
+    """Log scalar value to TensorBoard using TensorFlow 2.x"""
+    with writer.as_default():
+        tf.summary.scalar(tag, value, step=step)
+        writer.flush()
 
 # Create Z for generator
 def get_noise(batch_size, len_input):

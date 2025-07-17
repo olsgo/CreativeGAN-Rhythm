@@ -1,21 +1,30 @@
-### Requirements
+# Requirements optimized for M1 Max machines running macOS Sequoia
+# For M1 Max: use tensorflow-macos and tensorflow-metal
+# For other systems: use regular tensorflow
 
-### If you have a GPU environment, uncomment the following line
-tensorflow-gpu==1.15.0
-#tensorflow==1.15.0
+# TensorFlow - Use tensorflow-macos on M1 Max, regular tensorflow elsewhere
+# tensorflow-macos>=2.13.0  # Uncomment on M1 Max
+# tensorflow-metal>=1.0.0   # Uncomment on M1 Max
+tensorflow>=2.13.0          # Use this on non-M1 systems
 
-keras == 2.3.1
+# Core dependencies
 protobuf
 matplotlib
 joblib
 
+# MIDI processing
 pretty_midi
 pyfluidsynth
 
-tensorboard_logger
-matplotlib
+# Logging and utilities
+tensorboard
 pyxdameraulevenshtein
 
+# Jupyter environment
 jupyter 
 notebook
 tqdm
+
+# Additional optimizations
+numpy
+scipy

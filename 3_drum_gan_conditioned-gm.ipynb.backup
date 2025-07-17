@@ -4,19 +4,6 @@
    "cell_type": "markdown",
    "metadata": {},
    "source": [
-    "# 3_drum_gan_conditioned-gm.ipynb - M1 Max Optimized\\n",
-    "\\n",
-    "This notebook has been optimized for M1 Max machines running macOS Sequoia:\\n",
-    "- Updated to TensorFlow 2.x with Apple Silicon support\\n",
-    "- Added Metal GPU acceleration\\n",
-    "- Enabled mixed precision training\\n",
-    "- Updated all Keras imports to use tf.keras\\n"
-   ]
-  },
-  {
-   "cell_type": "markdown",
-   "metadata": {},
-   "source": [
     "# Constants"
    ]
   },
@@ -26,21 +13,8 @@
    "metadata": {},
    "outputs": [],
    "source": [
-    "# M1 Max Optimized Setup\\n",
-    "import sys\\n",
-    "sys.path.append('./rhythm_can')\\n",
-    "\\n",
-    "# Import M1 optimization utilities\\n",
-    "from rhythm_can.m1_optimization import configure_tensorflow_for_m1, get_optimized_imports\\n",
-    "\\n",
-    "# Configure TensorFlow for M1 Max\\n",
-    "tf = configure_tensorflow_for_m1()\\n",
-    "\\n",
-    "# Get optimized imports\\n",
-    "imports = get_optimized_imports()\\n",
-    "globals().update(imports)\\n",
-    "\\n",
-    "print('\u2705 M1 Max optimization complete!')\\n"
+    "import os\n",
+    "os.environ['CUDA_VISIBLE_DEVICES'] = '0' # only relevant to my own environment"
    ]
   },
   {
@@ -315,7 +289,7 @@
     "discriminator = Model([drum_input, label_input], output)\n",
     "discriminator.summary()\n",
     "\n",
-    "optimizer = Adam(learning_rate=0.0001)\n",
+    "optimizer = Adam(lr=0.0001)\n",
     "discriminator.compile(optimizer=optimizer, loss='binary_crossentropy', \n",
     "                      metrics=['accuracy'])"
    ]
@@ -486,7 +460,7 @@
     "\n",
     "# define combined GAN model\n",
     "gan = Model([z_input, label_input], prediction_gan)\n",
-    "optimizer = Adam(learning_rate=0.0001)\n",
+    "optimizer = Adam(lr=0.0001)\n",
     "gan.compile(optimizer=optimizer, loss='binary_crossentropy', metrics=['binary_accuracy'])\n",
     "gan.summary()"
    ]

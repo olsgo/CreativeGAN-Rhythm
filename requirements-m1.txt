@@ -1,0 +1,27 @@
+# Requirements specifically for M1 Max machines running macOS Sequoia
+
+# TensorFlow for Apple Silicon with Metal GPU support
+tensorflow-macos>=2.13.0
+tensorflow-metal>=1.0.0
+
+# Core dependencies
+protobuf
+matplotlib
+joblib
+
+# MIDI processing
+pretty_midi
+pyfluidsynth
+
+# Logging and utilities
+tensorboard
+pyxdameraulevenshtein
+
+# Jupyter environment
+jupyter 
+notebook
+tqdm
+
+# Additional M1 optimizations
+numpy
+scipy

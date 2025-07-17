@@ -1,39 +1,15 @@
 {
  "cells": [
   {
-   "cell_type": "markdown",
-   "metadata": {},
-   "source": [
-    "# 1_rhythm_classification-gm.ipynb - M1 Max Optimized\\n",
-    "\\n",
-    "This notebook has been optimized for M1 Max machines running macOS Sequoia:\\n",
-    "- Updated to TensorFlow 2.x with Apple Silicon support\\n",
-    "- Added Metal GPU acceleration\\n",
-    "- Enabled mixed precision training\\n",
-    "- Updated all Keras imports to use tf.keras\\n"
-   ]
-  },
-  {
    "cell_type": "code",
    "execution_count": 1,
    "metadata": {},
    "outputs": [],
    "source": [
-    "# M1 Max Optimized Setup\\n",
-    "import sys\\n",
-    "sys.path.append('./rhythm_can')\\n",
-    "\\n",
-    "# Import M1 optimization utilities\\n",
-    "from rhythm_can.m1_optimization import configure_tensorflow_for_m1, get_optimized_imports\\n",
-    "\\n",
-    "# Configure TensorFlow for M1 Max\\n",
-    "tf = configure_tensorflow_for_m1()\\n",
-    "\\n",
-    "# Get optimized imports\\n",
-    "imports = get_optimized_imports()\\n",
-    "globals().update(imports)\\n",
-    "\\n",
-    "print('\u2705 M1 Max optimization complete!')\\n"
+    "from glob import glob\n",
+    "import os\n",
+    "\n",
+    "os.environ[\"CUDA_VISIBLE_DEVICES\"] = '0' # relevant only for my environment"
    ]
   },
   {
@@ -784,7 +760,7 @@
     }
    ],
    "source": [
-    "# from tensorboard_logger import configure, log_value\n",
+    "from tensorboard_logger import configure, log_value\n",
     "\n",
     "from datetime import datetime\n",
     "now = datetime.now()\n",
